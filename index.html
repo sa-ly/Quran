@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quran | مدونة وتلاوات سور القرآن الكريم</title>
+  <meta name="description" content="استماع وتلاوة سور القرآن الكريم بصوت كبار القراء مع قراءة النص القرآني كاملاً بالرسم العثماني.">
+  <link rel="canonical" href="https://sa-ly.github.io/Quran/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --bg-base: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      direction: rtl;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    
+    .portal-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .portal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 60px 20px;
+    }
+    .portal-hero {
+      text-align: center;
+      margin-bottom: 36px;
+      padding: 32px 20px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
+    .hero-heading {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+    .hero-subheading {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+    }
+    .search-input {
+      width: 100%;
+      max-width: 520px;
+      padding: 14px 20px;
+      font-size: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      background: #f8fafc;
+      color: var(--text-main);
+      outline: none;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .search-input:focus {
+      background: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+    }
+    .surahs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+    .surah-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .surah-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+      border-color: #cbd5e1;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .card-number-badge {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 10px;
+      background: #eef2ff;
+      color: var(--primary);
+      font-family: monospace;
+    }
+    .card-type-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 10px;
+    }
+    .type-makki { background: #fef3c7; color: #92400e; }
+    .type-madani { background: #dcfce7; color: #166534; }
+    .card-title-ar {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+      font-family: 'Amiri', serif;
+    }
+    .card-title-en {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .card-excerpt {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #f1f5f9;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .read-btn {
+      font-weight: 700;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="portal-header">
+    <div class="header-inner">
+      <div class="brand-title">Quran</div>
+      <a href="./sitemap.xml" target="_blank" style="font-size: 12px; color: var(--text-muted);">خريطة الموقع (Sitemap)</a>
+    </div>
+  </header>
+
+  <main class="portal-container">
+    <div class="portal-hero">
+      <h1 class="hero-heading">فهرس وتلاوات سور القرآن الكريم</h1>
+      <p class="hero-subheading">استمع إلى تلاوات عذبة بصوت نخبة من كبار القراء، وتصفح آيات الذكر الحكيم بالرسم العثماني.</p>
+      <input type="text" id="surah-search-input" class="search-input" placeholder="ابحث باسم السورة أو رقمها (مثال: الكهف أو 18)..." oninput="filterSurahs()">
+    </div>
+
+    <div class="surahs-grid" id="surahs-grid">
+      
+      <a href="./undefined.html" class="surah-card" data-name-ar="الفاتحة" data-name-en="surah al-fātiḥah" data-id="1">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 1</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الفاتحة</h2>
+          <div class="card-title-en">Surah Al-Fātiḥah • 7 آية</div>
+          <p class="card-excerpt">سورة الفاتحة هي أعظم سورة في كتاب الله عز وجل. استماع وتلاوة سورة الفاتحة (Surah Al-Fātiḥah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 1 • جزء 1</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="البقرة" data-name-en="surah al-baqarah" data-id="2">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 2</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة البقرة</h2>
+          <div class="card-title-en">Surah Al-Baqarah • 286 آية</div>
+          <p class="card-excerpt">سورة البقرة سنام القرآن وذروته. استماع وتلاوة سورة البقرة (Surah Al-Baqarah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 2 • جزء 1</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="آل عمران" data-name-en="surah āl 'imrān" data-id="3">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 3</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة آل عمران</h2>
+          <div class="card-title-en">Surah Āl 'Imrān • 200 آية</div>
+          <p class="card-excerpt">سورة آل عمران مع سورة البقرة هما "الزهراوان" اللتان تحاجان عن صاحبهما يوم القيامة كأنهما غمامتان أو غيايتان تظلان قارئهما.. استماع وتلاوة سورة آل عمران (Surah Āl 'Imrān) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 50 • جزء 3</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النساء" data-name-en="surah an-nisā'" data-id="4">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 4</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النساء</h2>
+          <div class="card-title-en">Surah An-Nisā' • 176 آية</div>
+          <p class="card-excerpt">سورة النساء من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة النساء (Surah An-Nisā') كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 77 • جزء 4</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المائدة" data-name-en="surah al-mā'idah" data-id="5">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 5</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المائدة</h2>
+          <div class="card-title-en">Surah Al-Mā'idah • 120 آية</div>
+          <p class="card-excerpt">سورة المائدة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة المائدة (Surah Al-Mā'idah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 106 • جزء 6</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأنعام" data-name-en="surah al-an'ām" data-id="6">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 6</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأنعام</h2>
+          <div class="card-title-en">Surah Al-An'ām • 165 آية</div>
+          <p class="card-excerpt">سورة الأنعام من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الأنعام (Surah Al-An'ām) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 128 • جزء 7</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأعراف" data-name-en="surah al-a'rāf" data-id="7">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 7</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأعراف</h2>
+          <div class="card-title-en">Surah Al-A'rāf • 206 آية</div>
+          <p class="card-excerpt">سورة الأعراف من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الأعراف (Surah Al-A'rāf) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 151 • جزء 8</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأنفال" data-name-en="surah al-anfāl" data-id="8">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 8</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأنفال</h2>
+          <div class="card-title-en">Surah Al-Anfāl • 75 آية</div>
+          <p class="card-excerpt">سورة الأنفال من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الأنفال (Surah Al-Anfāl) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 177 • جزء 9</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="التوبة" data-name-en="surah at-tawbah" data-id="9">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 9</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة التوبة</h2>
+          <div class="card-title-en">Surah At-Tawbah • 129 آية</div>
+          <p class="card-excerpt">سورة التوبة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة التوبة (Surah At-Tawbah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 187 • جزء 10</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="يونس" data-name-en="surah yūnus" data-id="10">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 10</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة يونس</h2>
+          <div class="card-title-en">Surah Yūnus • 109 آية</div>
+          <p class="card-excerpt">سورة يونس من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة يونس (Surah Yūnus) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 208 • جزء 11</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="هود" data-name-en="surah hūd" data-id="11">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 11</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة هود</h2>
+          <div class="card-title-en">Surah Hūd • 123 آية</div>
+          <p class="card-excerpt">سورة هود من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة هود (Surah Hūd) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 221 • جزء 11</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="يوسف" data-name-en="surah yūsuf" data-id="12">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 12</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة يوسف</h2>
+          <div class="card-title-en">Surah Yūsuf • 111 آية</div>
+          <p class="card-excerpt">سورة يوسف من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة يوسف (Surah Yūsuf) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 235 • جزء 12</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الرعد" data-name-en="surah ar-ra'd" data-id="13">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 13</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الرعد</h2>
+          <div class="card-title-en">Surah Ar-Ra'd • 43 آية</div>
+          <p class="card-excerpt">سورة الرعد من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الرعد (Surah Ar-Ra'd) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 249 • جزء 13</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="إبراهيم" data-name-en="surah ibrāhīm" data-id="14">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 14</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة إبراهيم</h2>
+          <div class="card-title-en">Surah Ibrāhīm • 52 آية</div>
+          <p class="card-excerpt">سورة إبراهيم من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة إبراهيم (Surah Ibrāhīm) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 255 • جزء 13</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الحجر" data-name-en="surah al-ḥijr" data-id="15">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 15</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الحجر</h2>
+          <div class="card-title-en">Surah Al-Ḥijr • 99 آية</div>
+          <p class="card-excerpt">سورة الحجر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الحجر (Surah Al-Ḥijr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 262 • جزء 14</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النحل" data-name-en="surah an-naḥl" data-id="16">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 16</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النحل</h2>
+          <div class="card-title-en">Surah An-Naḥl • 128 آية</div>
+          <p class="card-excerpt">سورة النحل من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة النحل (Surah An-Naḥl) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 267 • جزء 14</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الإسراء" data-name-en="surah al-isrā'" data-id="17">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 17</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الإسراء</h2>
+          <div class="card-title-en">Surah Al-Isrā' • 111 آية</div>
+          <p class="card-excerpt">سورة الإسراء من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الإسراء (Surah Al-Isrā') كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 282 • جزء 15</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الكهف" data-name-en="surah al-kahf" data-id="18">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 18</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الكهف</h2>
+          <div class="card-title-en">Surah Al-Kahf • 110 آية</div>
+          <p class="card-excerpt">سورة الكهف من أعظم سور القرآن الكريم؛ فقراءتها يوم الجمعة تنير للمسلم ما بين الجمعتين. استماع وتلاوة سورة الكهف (Surah Al-Kahf) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 293 • جزء 15</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="مريم" data-name-en="surah maryam" data-id="19">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 19</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة مريم</h2>
+          <div class="card-title-en">Surah Maryam • 98 آية</div>
+          <p class="card-excerpt">سورة مريم من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة مريم (Surah Maryam) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 305 • جزء 16</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="طه" data-name-en="surah ṭāhā" data-id="20">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 20</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة طه</h2>
+          <div class="card-title-en">Surah Ṭāhā • 135 آية</div>
+          <p class="card-excerpt">سورة طه من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة طه (Surah Ṭāhā) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 312 • جزء 16</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأنبياء" data-name-en="surah al-anbiyā'" data-id="21">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 21</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأنبياء</h2>
+          <div class="card-title-en">Surah Al-Anbiyā' • 112 آية</div>
+          <p class="card-excerpt">سورة الأنبياء من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الأنبياء (Surah Al-Anbiyā') كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 322 • جزء 17</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الحج" data-name-en="surah al-ḥajj" data-id="22">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 22</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الحج</h2>
+          <div class="card-title-en">Surah Al-Ḥajj • 78 آية</div>
+          <p class="card-excerpt">سورة الحج من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الحج (Surah Al-Ḥajj) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 332 • جزء 17</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المؤمنون" data-name-en="surah al-mu'minūn" data-id="23">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 23</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المؤمنون</h2>
+          <div class="card-title-en">Surah Al-Mu'minūn • 118 آية</div>
+          <p class="card-excerpt">سورة المؤمنون من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المؤمنون (Surah Al-Mu'minūn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 342 • جزء 18</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النور" data-name-en="surah an-nūr" data-id="24">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 24</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النور</h2>
+          <div class="card-title-en">Surah An-Nūr • 64 آية</div>
+          <p class="card-excerpt">سورة النور من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة النور (Surah An-Nūr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 350 • جزء 18</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الفرقان" data-name-en="surah al-furqān" data-id="25">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 25</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الفرقان</h2>
+          <div class="card-title-en">Surah Al-Furqān • 77 آية</div>
+          <p class="card-excerpt">سورة الفرقان من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الفرقان (Surah Al-Furqān) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 359 • جزء 18</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الشعراء" data-name-en="surah ash-shu'arā'" data-id="26">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 26</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الشعراء</h2>
+          <div class="card-title-en">Surah Ash-Shu'arā' • 227 آية</div>
+          <p class="card-excerpt">سورة الشعراء من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الشعراء (Surah Ash-Shu'arā') كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 367 • جزء 19</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النمل" data-name-en="surah an-naml" data-id="27">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 27</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النمل</h2>
+          <div class="card-title-en">Surah An-Naml • 93 آية</div>
+          <p class="card-excerpt">سورة النمل من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة النمل (Surah An-Naml) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 377 • جزء 19</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="القصص" data-name-en="surah al-qaṣaṣ" data-id="28">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 28</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة القصص</h2>
+          <div class="card-title-en">Surah Al-Qaṣaṣ • 88 آية</div>
+          <p class="card-excerpt">سورة القصص من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة القصص (Surah Al-Qaṣaṣ) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 385 • جزء 20</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="العنكبوت" data-name-en="surah al-'ankabūt" data-id="29">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 29</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة العنكبوت</h2>
+          <div class="card-title-en">Surah Al-'Ankabūt • 69 آية</div>
+          <p class="card-excerpt">سورة العنكبوت من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة العنكبوت (Surah Al-'Ankabūt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 396 • جزء 20</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الروم" data-name-en="surah ar-rūm" data-id="30">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 30</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الروم</h2>
+          <div class="card-title-en">Surah Ar-Rūm • 60 آية</div>
+          <p class="card-excerpt">سورة الروم من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الروم (Surah Ar-Rūm) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 404 • جزء 21</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="لقمان" data-name-en="surah luqmān" data-id="31">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 31</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة لقمان</h2>
+          <div class="card-title-en">Surah Luqmān • 34 آية</div>
+          <p class="card-excerpt">سورة لقمان من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة لقمان (Surah Luqmān) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 411 • جزء 21</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="السجدة" data-name-en="surah as-sajdah" data-id="32">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 32</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة السجدة</h2>
+          <div class="card-title-en">Surah As-Sajdah • 30 آية</div>
+          <p class="card-excerpt">سورة السجدة من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة السجدة (Surah As-Sajdah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 415 • جزء 21</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأحزاب" data-name-en="surah al-aḥzāb" data-id="33">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 33</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأحزاب</h2>
+          <div class="card-title-en">Surah Al-Aḥzāb • 73 آية</div>
+          <p class="card-excerpt">سورة الأحزاب من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الأحزاب (Surah Al-Aḥzāb) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 418 • جزء 21</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="سبأ" data-name-en="surah saba'" data-id="34">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 34</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة سبأ</h2>
+          <div class="card-title-en">Surah Saba' • 54 آية</div>
+          <p class="card-excerpt">سورة سبأ من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة سبأ (Surah Saba') كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 428 • جزء 22</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="فاطر" data-name-en="surah fāṭir" data-id="35">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 35</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة فاطر</h2>
+          <div class="card-title-en">Surah Fāṭir • 45 آية</div>
+          <p class="card-excerpt">سورة فاطر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة فاطر (Surah Fāṭir) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 434 • جزء 22</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="يس" data-name-en="surah yāsīn" data-id="36">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 36</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة يس</h2>
+          <div class="card-title-en">Surah Yāsīn • 83 آية</div>
+          <p class="card-excerpt">سورة يس قلب القرآن الكريم. استماع وتلاوة سورة يس (Surah Yāsīn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 440 • جزء 22</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الصافات" data-name-en="surah aṣ-ṣāffāt" data-id="37">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 37</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الصافات</h2>
+          <div class="card-title-en">Surah Aṣ-Ṣāffāt • 182 آية</div>
+          <p class="card-excerpt">سورة الصافات من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الصافات (Surah Aṣ-Ṣāffāt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 446 • جزء 23</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="ص" data-name-en="surah ṣād" data-id="38">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 38</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة ص</h2>
+          <div class="card-title-en">Surah Ṣād • 88 آية</div>
+          <p class="card-excerpt">سورة ص من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة ص (Surah Ṣād) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 453 • جزء 23</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الزمر" data-name-en="surah az-zumar" data-id="39">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 39</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الزمر</h2>
+          <div class="card-title-en">Surah Az-Zumar • 75 آية</div>
+          <p class="card-excerpt">سورة الزمر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الزمر (Surah Az-Zumar) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 458 • جزء 23</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="غافر" data-name-en="surah ghāfir" data-id="40">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 40</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة غافر</h2>
+          <div class="card-title-en">Surah Ghāfir • 85 آية</div>
+          <p class="card-excerpt">سورة غافر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة غافر (Surah Ghāfir) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 467 • جزء 24</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="فصلت" data-name-en="surah fuṣṣilat" data-id="41">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 41</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة فصلت</h2>
+          <div class="card-title-en">Surah Fuṣṣilat • 54 آية</div>
+          <p class="card-excerpt">سورة فصلت من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة فصلت (Surah Fuṣṣilat) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 477 • جزء 24</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الشورى" data-name-en="surah ash-shūrā" data-id="42">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 42</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الشورى</h2>
+          <div class="card-title-en">Surah Ash-Shūrā • 53 آية</div>
+          <p class="card-excerpt">سورة الشورى من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الشورى (Surah Ash-Shūrā) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 483 • جزء 25</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الزخرف" data-name-en="surah az-zukhruf" data-id="43">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 43</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الزخرف</h2>
+          <div class="card-title-en">Surah Az-Zukhruf • 89 آية</div>
+          <p class="card-excerpt">سورة الزخرف من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الزخرف (Surah Az-Zukhruf) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 489 • جزء 25</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الدخان" data-name-en="surah ad-dukhān" data-id="44">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 44</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الدخان</h2>
+          <div class="card-title-en">Surah Ad-Dukhān • 59 آية</div>
+          <p class="card-excerpt">سورة الدخان من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الدخان (Surah Ad-Dukhān) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 496 • جزء 25</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الجاثية" data-name-en="surah al-jāthiyah" data-id="45">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 45</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الجاثية</h2>
+          <div class="card-title-en">Surah Al-Jāthiyah • 37 آية</div>
+          <p class="card-excerpt">سورة الجاثية من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الجاثية (Surah Al-Jāthiyah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 499 • جزء 25</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأحقاف" data-name-en="surah al-aḥqāf" data-id="46">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 46</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأحقاف</h2>
+          <div class="card-title-en">Surah Al-Aḥqāf • 35 آية</div>
+          <p class="card-excerpt">سورة الأحقاف من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الأحقاف (Surah Al-Aḥqāf) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 502 • جزء 26</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="محمد" data-name-en="surah muḥammad" data-id="47">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 47</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة محمد</h2>
+          <div class="card-title-en">Surah Muḥammad • 38 آية</div>
+          <p class="card-excerpt">سورة محمد من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة محمد (Surah Muḥammad) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 507 • جزء 26</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الفتح" data-name-en="surah al-fatḥ" data-id="48">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 48</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الفتح</h2>
+          <div class="card-title-en">Surah Al-Fatḥ • 29 آية</div>
+          <p class="card-excerpt">سورة الفتح من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الفتح (Surah Al-Fatḥ) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 511 • جزء 26</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الحجرات" data-name-en="surah al-ḥujurāt" data-id="49">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 49</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الحجرات</h2>
+          <div class="card-title-en">Surah Al-Ḥujurāt • 18 آية</div>
+          <p class="card-excerpt">سورة الحجرات من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الحجرات (Surah Al-Ḥujurāt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 515 • جزء 26</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="ق" data-name-en="surah qāf" data-id="50">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 50</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة ق</h2>
+          <div class="card-title-en">Surah Qāf • 45 آية</div>
+          <p class="card-excerpt">سورة ق من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة ق (Surah Qāf) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 518 • جزء 26</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الذاريات" data-name-en="surah adh-dhāriyāt" data-id="51">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 51</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الذاريات</h2>
+          <div class="card-title-en">Surah Adh-Dhāriyāt • 60 آية</div>
+          <p class="card-excerpt">سورة الذاريات من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الذاريات (Surah Adh-Dhāriyāt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 520 • جزء 26</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الطور" data-name-en="surah aṭ-ṭūr" data-id="52">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 52</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الطور</h2>
+          <div class="card-title-en">Surah Aṭ-Ṭūr • 49 آية</div>
+          <p class="card-excerpt">سورة الطور من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الطور (Surah Aṭ-Ṭūr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 523 • جزء 27</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النجم" data-name-en="surah an-najm" data-id="53">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 53</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النجم</h2>
+          <div class="card-title-en">Surah An-Najm • 62 آية</div>
+          <p class="card-excerpt">سورة النجم من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة النجم (Surah An-Najm) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 526 • جزء 27</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="القمر" data-name-en="surah al-qamar" data-id="54">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 54</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة القمر</h2>
+          <div class="card-title-en">Surah Al-Qamar • 55 آية</div>
+          <p class="card-excerpt">سورة القمر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة القمر (Surah Al-Qamar) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 528 • جزء 27</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الرحمن" data-name-en="surah ar-raḥmān" data-id="55">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 55</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الرحمن</h2>
+          <div class="card-title-en">Surah Ar-Raḥmān • 78 آية</div>
+          <p class="card-excerpt">سورة الرحمن عروس القرآن الكريم. استماع وتلاوة سورة الرحمن (Surah Ar-Raḥmān) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 531 • جزء 27</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الواقعة" data-name-en="surah al-wāqi'ah" data-id="56">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 56</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الواقعة</h2>
+          <div class="card-title-en">Surah Al-Wāqi'ah • 96 آية</div>
+          <p class="card-excerpt">سورة الواقعة سورة الغنى والتدبر في مصائر الخلق يوم القيامة وأصنافهم الثلاثة: السابقون المقربون. استماع وتلاوة سورة الواقعة (Surah Al-Wāqi'ah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 534 • جزء 27</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الحديد" data-name-en="surah al-ḥadīd" data-id="57">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 57</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الحديد</h2>
+          <div class="card-title-en">Surah Al-Ḥadīd • 29 آية</div>
+          <p class="card-excerpt">سورة الحديد من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الحديد (Surah Al-Ḥadīd) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 537 • جزء 27</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المجادلة" data-name-en="surah al-mujādilah" data-id="58">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 58</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المجادلة</h2>
+          <div class="card-title-en">Surah Al-Mujādilah • 22 آية</div>
+          <p class="card-excerpt">سورة المجادلة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة المجادلة (Surah Al-Mujādilah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 542 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الحشر" data-name-en="surah al-ḥashr" data-id="59">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 59</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الحشر</h2>
+          <div class="card-title-en">Surah Al-Ḥashr • 24 آية</div>
+          <p class="card-excerpt">سورة الحشر من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الحشر (Surah Al-Ḥashr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 545 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الممتحنة" data-name-en="surah al-mumtaḥanah" data-id="60">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 60</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الممتحنة</h2>
+          <div class="card-title-en">Surah Al-Mumtaḥanah • 13 آية</div>
+          <p class="card-excerpt">سورة الممتحنة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الممتحنة (Surah Al-Mumtaḥanah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 549 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الصف" data-name-en="surah aṣ-ṣaff" data-id="61">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 61</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الصف</h2>
+          <div class="card-title-en">Surah Aṣ-Ṣaff • 14 آية</div>
+          <p class="card-excerpt">سورة الصف من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الصف (Surah Aṣ-Ṣaff) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 551 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الجمعة" data-name-en="surah al-jumu'ah" data-id="62">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 62</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الجمعة</h2>
+          <div class="card-title-en">Surah Al-Jumu'ah • 11 آية</div>
+          <p class="card-excerpt">سورة الجمعة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الجمعة (Surah Al-Jumu'ah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 553 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المنافقون" data-name-en="surah al-munāfiqūn" data-id="63">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 63</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المنافقون</h2>
+          <div class="card-title-en">Surah Al-Munāfiqūn • 11 آية</div>
+          <p class="card-excerpt">سورة المنافقون من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة المنافقون (Surah Al-Munāfiqūn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 554 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="التغابن" data-name-en="surah at-taghābun" data-id="64">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 64</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة التغابن</h2>
+          <div class="card-title-en">Surah At-Taghābun • 18 آية</div>
+          <p class="card-excerpt">سورة التغابن من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة التغابن (Surah At-Taghābun) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 556 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الطلاق" data-name-en="surah aṭ-ṭalāq" data-id="65">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 65</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الطلاق</h2>
+          <div class="card-title-en">Surah Aṭ-Ṭalāq • 12 آية</div>
+          <p class="card-excerpt">سورة الطلاق من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الطلاق (Surah Aṭ-Ṭalāq) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 558 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="التحريم" data-name-en="surah at-taḥrīm" data-id="66">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 66</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة التحريم</h2>
+          <div class="card-title-en">Surah At-Taḥrīm • 12 آية</div>
+          <p class="card-excerpt">سورة التحريم من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة التحريم (Surah At-Taḥrīm) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 560 • جزء 28</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الملك" data-name-en="surah al-mulk" data-id="67">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 67</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الملك</h2>
+          <div class="card-title-en">Surah Al-Mulk • 30 آية</div>
+          <p class="card-excerpt">سورة الملك هي المنجية والمانعة من عذاب القبر. استماع وتلاوة سورة الملك (Surah Al-Mulk) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 562 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="القلم" data-name-en="surah al-qalam" data-id="68">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 68</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة القلم</h2>
+          <div class="card-title-en">Surah Al-Qalam • 52 آية</div>
+          <p class="card-excerpt">سورة القلم من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة القلم (Surah Al-Qalam) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 564 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الحاقة" data-name-en="surah al-ḥāqqah" data-id="69">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 69</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الحاقة</h2>
+          <div class="card-title-en">Surah Al-Ḥāqqah • 52 آية</div>
+          <p class="card-excerpt">سورة الحاقة من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الحاقة (Surah Al-Ḥāqqah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 566 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المعارج" data-name-en="surah al-ma'ārij" data-id="70">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 70</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المعارج</h2>
+          <div class="card-title-en">Surah Al-Ma'ārij • 44 آية</div>
+          <p class="card-excerpt">سورة المعارج من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المعارج (Surah Al-Ma'ārij) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 568 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="نوح" data-name-en="surah nūḥ" data-id="71">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 71</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة نوح</h2>
+          <div class="card-title-en">Surah Nūḥ • 28 آية</div>
+          <p class="card-excerpt">سورة نوح من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة نوح (Surah Nūḥ) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 570 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الجن" data-name-en="surah al-jinn" data-id="72">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 72</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الجن</h2>
+          <div class="card-title-en">Surah Al-Jinn • 28 آية</div>
+          <p class="card-excerpt">سورة الجن من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الجن (Surah Al-Jinn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 572 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المزمل" data-name-en="surah al-muzzammil" data-id="73">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 73</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المزمل</h2>
+          <div class="card-title-en">Surah Al-Muzzammil • 20 آية</div>
+          <p class="card-excerpt">سورة المزمل من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المزمل (Surah Al-Muzzammil) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 574 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المدثر" data-name-en="surah al-muddaththir" data-id="74">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 74</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المدثر</h2>
+          <div class="card-title-en">Surah Al-Muddaththir • 56 آية</div>
+          <p class="card-excerpt">سورة المدثر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المدثر (Surah Al-Muddaththir) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 575 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="القيامة" data-name-en="surah al-qiyāmah" data-id="75">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 75</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة القيامة</h2>
+          <div class="card-title-en">Surah Al-Qiyāmah • 40 آية</div>
+          <p class="card-excerpt">سورة القيامة من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة القيامة (Surah Al-Qiyāmah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 577 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الإنسان" data-name-en="surah al-insān" data-id="76">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 76</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الإنسان</h2>
+          <div class="card-title-en">Surah Al-Insān • 31 آية</div>
+          <p class="card-excerpt">سورة الإنسان من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الإنسان (Surah Al-Insān) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 578 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المرسلات" data-name-en="surah al-mursalāt" data-id="77">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 77</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المرسلات</h2>
+          <div class="card-title-en">Surah Al-Mursalāt • 50 آية</div>
+          <p class="card-excerpt">سورة المرسلات من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المرسلات (Surah Al-Mursalāt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 580 • جزء 29</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النبأ" data-name-en="surah an-naba'" data-id="78">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 78</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النبأ</h2>
+          <div class="card-title-en">Surah An-Naba' • 40 آية</div>
+          <p class="card-excerpt">سورة النبأ من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة النبأ (Surah An-Naba') كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 582 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النازعات" data-name-en="surah an-nāzi'āt" data-id="79">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 79</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النازعات</h2>
+          <div class="card-title-en">Surah An-Nāzi'āt • 46 آية</div>
+          <p class="card-excerpt">سورة النازعات من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة النازعات (Surah An-Nāzi'āt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 583 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="عبس" data-name-en="surah 'abasa" data-id="80">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 80</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة عبس</h2>
+          <div class="card-title-en">Surah 'Abasa • 42 آية</div>
+          <p class="card-excerpt">سورة عبس من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة عبس (Surah 'Abasa) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 585 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="التكوير" data-name-en="surah at-takwīr" data-id="81">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 81</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة التكوير</h2>
+          <div class="card-title-en">Surah At-Takwīr • 29 آية</div>
+          <p class="card-excerpt">سورة التكوير من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة التكوير (Surah At-Takwīr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 586 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الانفطار" data-name-en="surah al-infiṭār" data-id="82">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 82</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الانفطار</h2>
+          <div class="card-title-en">Surah Al-Infiṭār • 19 آية</div>
+          <p class="card-excerpt">سورة الانفطار من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الانفطار (Surah Al-Infiṭār) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 587 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المطففين" data-name-en="surah al-muṭaffifīn" data-id="83">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 83</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المطففين</h2>
+          <div class="card-title-en">Surah Al-Muṭaffifīn • 36 آية</div>
+          <p class="card-excerpt">سورة المطففين من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المطففين (Surah Al-Muṭaffifīn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 587 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الانشقاق" data-name-en="surah al-inshiqāq" data-id="84">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 84</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الانشقاق</h2>
+          <div class="card-title-en">Surah Al-Inshiqāq • 25 آية</div>
+          <p class="card-excerpt">سورة الانشقاق من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الانشقاق (Surah Al-Inshiqāq) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 589 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="البروج" data-name-en="surah al-burūj" data-id="85">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 85</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة البروج</h2>
+          <div class="card-title-en">Surah Al-Burūj • 22 آية</div>
+          <p class="card-excerpt">سورة البروج من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة البروج (Surah Al-Burūj) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 590 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الطارق" data-name-en="surah aṭ-ṭāriq" data-id="86">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 86</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الطارق</h2>
+          <div class="card-title-en">Surah Aṭ-Ṭāriq • 17 آية</div>
+          <p class="card-excerpt">سورة الطارق من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الطارق (Surah Aṭ-Ṭāriq) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 591 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الأعلى" data-name-en="surah al-a'lā" data-id="87">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 87</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الأعلى</h2>
+          <div class="card-title-en">Surah Al-A'lā • 19 آية</div>
+          <p class="card-excerpt">سورة الأعلى من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الأعلى (Surah Al-A'lā) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 591 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الغاشية" data-name-en="surah al-ghāshiyah" data-id="88">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 88</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الغاشية</h2>
+          <div class="card-title-en">Surah Al-Ghāshiyah • 26 آية</div>
+          <p class="card-excerpt">سورة الغاشية من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الغاشية (Surah Al-Ghāshiyah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 592 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الفجر" data-name-en="surah al-fajr" data-id="89">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 89</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الفجر</h2>
+          <div class="card-title-en">Surah Al-Fajr • 30 آية</div>
+          <p class="card-excerpt">سورة الفجر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الفجر (Surah Al-Fajr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 593 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="البلد" data-name-en="surah al-balad" data-id="90">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 90</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة البلد</h2>
+          <div class="card-title-en">Surah Al-Balad • 20 آية</div>
+          <p class="card-excerpt">سورة البلد من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة البلد (Surah Al-Balad) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 594 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الشمس" data-name-en="surah ash-shams" data-id="91">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 91</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الشمس</h2>
+          <div class="card-title-en">Surah Ash-Shams • 15 آية</div>
+          <p class="card-excerpt">سورة الشمس من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الشمس (Surah Ash-Shams) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 595 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الليل" data-name-en="surah al-layl" data-id="92">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 92</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الليل</h2>
+          <div class="card-title-en">Surah Al-Layl • 21 آية</div>
+          <p class="card-excerpt">سورة الليل من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الليل (Surah Al-Layl) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 595 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الضحى" data-name-en="surah aḍ-ḍuḥā" data-id="93">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 93</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الضحى</h2>
+          <div class="card-title-en">Surah Aḍ-Ḍuḥā • 11 آية</div>
+          <p class="card-excerpt">سورة الضحى من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الضحى (Surah Aḍ-Ḍuḥā) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 596 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الشرح" data-name-en="surah ash-sharḥ" data-id="94">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 94</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الشرح</h2>
+          <div class="card-title-en">Surah Ash-Sharḥ • 8 آية</div>
+          <p class="card-excerpt">سورة الشرح من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الشرح (Surah Ash-Sharḥ) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 596 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="التين" data-name-en="surah at-tīn" data-id="95">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 95</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة التين</h2>
+          <div class="card-title-en">Surah At-Tīn • 8 آية</div>
+          <p class="card-excerpt">سورة التين من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة التين (Surah At-Tīn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 597 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="العلق" data-name-en="surah al-'alaq" data-id="96">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 96</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة العلق</h2>
+          <div class="card-title-en">Surah Al-'Alaq • 19 آية</div>
+          <p class="card-excerpt">سورة العلق من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة العلق (Surah Al-'Alaq) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 597 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="القدر" data-name-en="surah al-qadr" data-id="97">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 97</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة القدر</h2>
+          <div class="card-title-en">Surah Al-Qadr • 5 آية</div>
+          <p class="card-excerpt">سورة القدر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة القدر (Surah Al-Qadr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 598 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="البينة" data-name-en="surah al-bayyinah" data-id="98">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 98</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة البينة</h2>
+          <div class="card-title-en">Surah Al-Bayyinah • 8 آية</div>
+          <p class="card-excerpt">سورة البينة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة البينة (Surah Al-Bayyinah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 598 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الزلزلة" data-name-en="surah az-zalzalah" data-id="99">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 99</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الزلزلة</h2>
+          <div class="card-title-en">Surah Az-Zalzalah • 8 آية</div>
+          <p class="card-excerpt">سورة الزلزلة من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة الزلزلة (Surah Az-Zalzalah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 599 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="العاديات" data-name-en="surah al-'ādiyāt" data-id="100">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 100</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة العاديات</h2>
+          <div class="card-title-en">Surah Al-'Ādiyāt • 11 آية</div>
+          <p class="card-excerpt">سورة العاديات من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة العاديات (Surah Al-'Ādiyāt) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 599 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="القارعة" data-name-en="surah al-qāri'ah" data-id="101">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 101</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة القارعة</h2>
+          <div class="card-title-en">Surah Al-Qāri'ah • 11 آية</div>
+          <p class="card-excerpt">سورة القارعة من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة القارعة (Surah Al-Qāri'ah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 600 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="التكاثر" data-name-en="surah at-takāthur" data-id="102">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 102</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة التكاثر</h2>
+          <div class="card-title-en">Surah At-Takāthur • 8 آية</div>
+          <p class="card-excerpt">سورة التكاثر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة التكاثر (Surah At-Takāthur) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 600 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="العصر" data-name-en="surah al-'aṣr" data-id="103">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 103</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة العصر</h2>
+          <div class="card-title-en">Surah Al-'Aṣr • 3 آية</div>
+          <p class="card-excerpt">سورة العصر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة العصر (Surah Al-'Aṣr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 601 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الهمزة" data-name-en="surah al-humazah" data-id="104">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 104</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الهمزة</h2>
+          <div class="card-title-en">Surah Al-Humazah • 9 آية</div>
+          <p class="card-excerpt">سورة الهمزة من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الهمزة (Surah Al-Humazah) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 601 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الفيل" data-name-en="surah al-fīl" data-id="105">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 105</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الفيل</h2>
+          <div class="card-title-en">Surah Al-Fīl • 5 آية</div>
+          <p class="card-excerpt">سورة الفيل من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الفيل (Surah Al-Fīl) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 601 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="قريش" data-name-en="surah quraysh" data-id="106">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 106</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة قريش</h2>
+          <div class="card-title-en">Surah Quraysh • 4 آية</div>
+          <p class="card-excerpt">سورة قريش من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة قريش (Surah Quraysh) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 602 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الماعون" data-name-en="surah al-mā'ūn" data-id="107">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 107</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الماعون</h2>
+          <div class="card-title-en">Surah Al-Mā'ūn • 7 آية</div>
+          <p class="card-excerpt">سورة الماعون من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الماعون (Surah Al-Mā'ūn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 602 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الكوثر" data-name-en="surah al-kawthar" data-id="108">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 108</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الكوثر</h2>
+          <div class="card-title-en">Surah Al-Kawthar • 3 آية</div>
+          <p class="card-excerpt">سورة الكوثر من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الكوثر (Surah Al-Kawthar) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 602 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الكافرون" data-name-en="surah al-kāfirūn" data-id="109">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 109</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الكافرون</h2>
+          <div class="card-title-en">Surah Al-Kāfirūn • 6 آية</div>
+          <p class="card-excerpt">سورة الكافرون من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة الكافرون (Surah Al-Kāfirūn) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 603 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="النصر" data-name-en="surah an-naṣr" data-id="110">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 110</span>
+            <span class="card-type-badge type-madani">مدنية</span>
+          </div>
+          <h2 class="card-title-ar">سورة النصر</h2>
+          <div class="card-title-en">Surah An-Naṣr • 3 آية</div>
+          <p class="card-excerpt">سورة النصر من السور الكريمة في المصحف الشريف (مدنية). استماع وتلاوة سورة النصر (Surah An-Naṣr) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 603 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="المسد" data-name-en="surah al-masad" data-id="111">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 111</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة المسد</h2>
+          <div class="card-title-en">Surah Al-Masad • 5 آية</div>
+          <p class="card-excerpt">سورة المسد من السور الكريمة في المصحف الشريف (مكية). استماع وتلاوة سورة المسد (Surah Al-Masad) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 603 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الإخلاص" data-name-en="surah al-ikhlāṣ" data-id="112">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 112</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الإخلاص</h2>
+          <div class="card-title-en">Surah Al-Ikhlāṣ • 4 آية</div>
+          <p class="card-excerpt">سورة الإخلاص تعدل ثلث القرآن الكريم في الأجر والفضل. استماع وتلاوة سورة الإخلاص (Surah Al-Ikhlāṣ) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 604 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الفلق" data-name-en="surah al-falaq" data-id="113">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 113</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الفلق</h2>
+          <div class="card-title-en">Surah Al-Falaq • 5 آية</div>
+          <p class="card-excerpt">سورة الفلق إحدى المعوذتين اللتين لم يتعوذ بمثلهما متعوذ. استماع وتلاوة سورة الفلق (Surah Al-Falaq) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 604 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+
+      <a href="./undefined.html" class="surah-card" data-name-ar="الناس" data-name-en="surah an-nās" data-id="114">
+        <div>
+          <div class="card-top">
+            <span class="card-number-badge">سورة 114</span>
+            <span class="card-type-badge type-makki">مكية</span>
+          </div>
+          <h2 class="card-title-ar">سورة الناس</h2>
+          <div class="card-title-en">Surah An-Nās • 6 آية</div>
+          <p class="card-excerpt">سورة الناس ختام المصحف الشريف والمعوذة الجامعة للتحصن برب الناس وملكهم وإلههم من شر الوسواس الخناس.. استماع وتلاوة سورة الناس (Surah An-Nās) كاملة بالرسم العثماني مع مشغل MP3 يضم 21 قارئاً.</p>
+        </div>
+        <div class="card-footer">
+          <span>صفحة 604 • جزء 30</span>
+          <span class="read-btn">استماع وقراءة ←</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <script>
+    function filterSurahs() {
+      var input = document.getElementById('surah-search-input').value.trim().toLowerCase();
+      var cards = document.querySelectorAll('.surah-card');
+      for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        var nameAr = (card.getAttribute('data-name-ar') || '').toLowerCase();
+        var nameEn = (card.getAttribute('data-name-en') || '').toLowerCase();
+        var id = card.getAttribute('data-id') || '';
+
+        if (!input || nameAr.indexOf(input) !== -1 || nameEn.indexOf(input) !== -1 || id === input) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
